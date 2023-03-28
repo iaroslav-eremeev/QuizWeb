@@ -1,11 +1,11 @@
 package model;
 
-import com.iaroslaveremeev.quiz.repositories.QuestionRepository;
-import com.iaroslaveremeev.quiz.util.Encrypt;
+import util.Encrypt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.StringEscapeUtils;
+import repositories.QuestionRepository;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -74,7 +74,6 @@ public class Quiz {
         QuestionRepository questionRepository = new QuestionRepository();
         this.questions = questionRepository.downloadQuestions(this);
         for (Question question : questions) {
-            //TODO URLDecoder
             String unescapedQuestion = StringEscapeUtils.unescapeHtml4(question.getQuestion());
             question.setQuestion(unescapedQuestion);
             String unescapedCorrectAnswer = StringEscapeUtils.unescapeHtml4(question.getCorrect_answer());

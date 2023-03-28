@@ -2,8 +2,8 @@ package repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iaroslaveremeev.quiz.model.Category;
-import com.iaroslaveremeev.quiz.util.URLHelper;
+import model.Category;
+import util.URLHelper;
 
 import java.io.IOException;
 import java.io.InputStream;

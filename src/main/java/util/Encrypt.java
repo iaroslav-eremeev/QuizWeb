@@ -1,8 +1,8 @@
 package util;
 
-import com.iaroslaveremeev.quiz.model.Category;
-import com.iaroslaveremeev.quiz.model.Difficulty;
-import com.iaroslaveremeev.quiz.model.Question;
+import model.Category;
+import model.Difficulty;
+import model.Question;
 
 public class Encrypt {
 

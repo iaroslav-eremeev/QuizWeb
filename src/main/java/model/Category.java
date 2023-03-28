@@ -1,6 +1,6 @@
 package model;
 
-import com.iaroslaveremeev.quiz.repositories.CategoryRepository;
+import repositories.CategoryRepository;
 
 import java.io.IOException;
 import java.util.Objects;
