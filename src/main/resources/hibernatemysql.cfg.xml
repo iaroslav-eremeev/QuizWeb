@@ -13,6 +13,6 @@
     <property name="show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
-    <mapping class="com.kirillkotov.model.Part" />
+    <!--<mapping class="com.kirillkotov.model.Part" />-->
   </session-factory>
 </hibernate-configuration>
