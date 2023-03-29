@@ -33,6 +33,8 @@ public class User {
     @NonNull
     private String name;
 
+    private String hash;
+
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

@@ -1,17 +1,29 @@
 package model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import repositories.CategoryRepository;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.Objects;
 
+@Entity
+@Table(name = "categories")
+@Data
+@NoArgsConstructor
 public class Category {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "name", nullable = false)
+    @NonNull
     private String name;
-
-    public Category() {
-    }
+    @OneToOne
+    @JoinColumn(name = "quiz_id", nullable = false)
+    private Quiz quiz;
 
     public Category(String name) throws IOException {
         CategoryRepository categoryRepository = new CategoryRepository();

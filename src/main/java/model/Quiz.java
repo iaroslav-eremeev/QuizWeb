@@ -1,35 +1,48 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 import util.Encrypt;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.text.StringEscapeUtils;
 import repositories.QuestionRepository;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "quizzes")
+@Data
+@NoArgsConstructor
 public class Quiz {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "number_of_questions", nullable = false)
+    @NonNull
     private int numberOfQuestions;
+    @Column(name = "category", nullable = false)
+    @NonNull
     private Category category;
+    @Column(name = "difficulty", nullable = false)
+    @NonNull
     private Difficulty difficulty;
+    @ToString.Exclude
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<Question> questions;
+    @Column(name = "date", nullable = true)
+    @NonNull
     private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Quiz() {
-    }
 
     public Quiz(int numberOfQuestions, Category category, Difficulty difficulty, List<Question> questions) {
         this.numberOfQuestions = numberOfQuestions;
