@@ -28,6 +28,17 @@ public class CategoryRepository {
         }
     }
 
+    /*public Category(String name) throws IOException {
+        CategoryRepository categoryRepository = new CategoryRepository();
+        categoryRepository.downloadCategories();
+        for (Category category : categoryRepository.getCategories()) {
+            if (category.getName().equals(name)) {
+                this.id = category.getId();
+                this.name = category.getName();
+            }
+        }
+    }*/
+
     public List<Category> getCategories() {
         return categories;
     }

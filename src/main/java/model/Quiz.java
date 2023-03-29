@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "quizzes")
@@ -24,64 +23,22 @@ public class Quiz {
     @Column(name = "id")
     private int id;
     @Column(name = "number_of_questions", nullable = false)
-    @NonNull
     private int numberOfQuestions;
-    @Column(name = "category", nullable = false)
-    @NonNull
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     @Column(name = "difficulty", nullable = false)
-    @NonNull
     private Difficulty difficulty;
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<Question> questions;
-    @Column(name = "date", nullable = true)
-    @NonNull
+    @Column(name = "date")
     private Date date;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    public Quiz(int numberOfQuestions, Category category, Difficulty difficulty, List<Question> questions) {
-        this.numberOfQuestions = numberOfQuestions;
-        this.category = category;
-        this.difficulty = difficulty;
-        this.questions = questions;
-    }
-
-    public int getNumberOfQuestions() {
-        return numberOfQuestions;
-    }
-
-    public void setNumberOfQuestions(int numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 
     public void downloadQuestions() throws IOException {
         QuestionRepository questionRepository = new QuestionRepository();
@@ -117,28 +74,5 @@ public class Quiz {
             decryptedQuestions.add(decryptedQuestion);
         }
         this.questions = decryptedQuestions;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Quiz quiz = (Quiz) o;
-        return numberOfQuestions == quiz.numberOfQuestions && Objects.equals(category, quiz.category) && difficulty == quiz.difficulty && Objects.equals(questions, quiz.questions);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numberOfQuestions, category, difficulty, questions);
-    }
-
-    @Override
-    public String toString() {
-        return "Quiz{" +
-                "numberOfQuestions=" + numberOfQuestions +
-                ", category=" + category +
-                ", difficulty=" + difficulty +
-                ", questions=" + questions +
-                '}';
     }
 }

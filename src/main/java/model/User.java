@@ -6,7 +6,6 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,15 +21,12 @@ public class User {
     private int id;
 
     @Column(name = "login", nullable = false, unique = true)
-    @NonNull
     private String login;
 
     @Column(name = "password", nullable = false)
-    @NonNull
     private String password;
 
     @Column(name = "name", nullable = false)
-    @NonNull
     private String name;
 
     private String hash;
