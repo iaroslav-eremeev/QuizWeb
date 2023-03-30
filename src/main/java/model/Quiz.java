@@ -48,11 +48,10 @@ public class Quiz {
             question.setQuestion(unescapedQuestion);
             String unescapedCorrectAnswer = StringEscapeUtils.unescapeHtml4(question.getCorrect_answer());
             question.setCorrect_answer(unescapedCorrectAnswer);
-            String[] unescapedIncorrectAnswers = new String[question.getIncorrect_answers().length];
-            for (int j = 0; j < question.getIncorrect_answers().length; j++) {
-                unescapedIncorrectAnswers[j] = StringEscapeUtils.unescapeHtml4(question.getIncorrect_answers()[j]);
+            List<String> unescapedIncorrectAnswers = question.getIncorrectAnswers();
+            for (int i = 0; i < question.getIncorrectAnswers().size(); i++) {
+                unescapedIncorrectAnswers.set(i, StringEscapeUtils.unescapeHtml4(unescapedIncorrectAnswers.get(i)));
             }
-            question.setIncorrect_answers(unescapedIncorrectAnswers);
         }
     }
 

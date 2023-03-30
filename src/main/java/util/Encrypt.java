@@ -4,6 +4,8 @@ import model.Category;
 import model.Difficulty;
 import model.Question;
 
+import java.util.List;
+
 public class Encrypt {
 
     // Encrypts a string using a Caesar cipher
@@ -47,11 +49,12 @@ public class Encrypt {
         Difficulty difficulty = question.getDifficulty();
         String encryptedQuestion = encrypt(question.getQuestion(), shift);
         String encryptedCorrectAnswer = encrypt(question.getCorrect_answer(), shift);
-        String[] encryptedIncorrectAnswers = new String[question.getIncorrect_answers().length];
-        for (int i = 0; i < question.getIncorrect_answers().length; i++) {
-            encryptedIncorrectAnswers[i] = encrypt(question.getIncorrect_answers()[i], shift);
+        List<String> encryptedIncorrectAnswers = question.getIncorrectAnswers();
+        for (int i = 0; i < question.getIncorrectAnswers().size(); i++) {
+            encryptedIncorrectAnswers.set(i, encrypt(question.getIncorrectAnswers().get(i), shift));
         }
-        return new Question(category, type, difficulty, encryptedQuestion, encryptedCorrectAnswer, encryptedIncorrectAnswers);
+        Question newQuestion = new Question(category, type, difficulty, encryptedQuestion, encryptedCorrectAnswer, encryptedIncorrectAnswers);
+        return new Question();
     }
 
     // Decrypts a question using a Caesar cipher
