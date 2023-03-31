@@ -1,4 +1,4 @@
-package repositories;
+/*package repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +23,7 @@ public class QuestionRepository {
                 "&difficulty=" + quiz.getDifficulty().name().toLowerCase() +
                 "&type=multiple", "GET")){
             assert inputStream != null;
-            /*String decoded = URLDecoder.decode(IOUtils.toString(inputStream, StandardCharsets.UTF_8), StandardCharsets.UTF_8);*/
+            *//*String decoded = URLDecoder.decode(IOUtils.toString(inputStream, StandardCharsets.UTF_8), StandardCharsets.UTF_8);*//*
             ObjectMapper objectMapper = new ObjectMapper();
             ResponseResult<List<Question>> responseResult = objectMapper.readValue(inputStream, new TypeReference<>() {
             });
@@ -59,4 +59,4 @@ public class QuestionRepository {
     }
 
 
-}
+}*/

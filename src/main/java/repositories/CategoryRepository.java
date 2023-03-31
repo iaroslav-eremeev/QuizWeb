@@ -1,4 +1,4 @@
-package repositories;
+/*package repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +27,7 @@ public class CategoryRepository {
         }
     }
 
-    /*public Category(String name) throws IOException {
+    *//*public Category(String name) throws IOException {
         CategoryRepository categoryRepository = new CategoryRepository();
         categoryRepository.downloadCategories();
         for (Category category : categoryRepository.getCategories()) {
@@ -36,7 +36,7 @@ public class CategoryRepository {
                 this.name = category.getName();
             }
         }
-    }*/
+    }*//*
 
     public List<Category> getCategories() {
         return categories;
@@ -65,4 +65,4 @@ public class CategoryRepository {
                 "categories=" + categories +
                 '}';
     }
-}
+}*/

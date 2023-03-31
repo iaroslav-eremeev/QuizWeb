@@ -9,8 +9,7 @@ import java.util.Date;
 @Entity
 @Table(name = "quizzes")
 @Data
-@NoArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor (force = true)
 public class QuizDB {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

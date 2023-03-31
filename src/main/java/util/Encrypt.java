@@ -49,7 +49,7 @@ public class Encrypt {
     }
 
     // Encrypts a question using a Caesar cipher
-    public static Question encryptQuestion(Question question, int shift) {
+    /*public static Question encryptQuestion(Question question, int shift) {
         Category category = question.getCategory();
         String type = question.getType();
         Difficulty difficulty = question.getDifficulty();
@@ -61,10 +61,10 @@ public class Encrypt {
         }
         Question newQuestion = new Question(category, type, difficulty, encryptedQuestion, encryptedCorrectAnswer, encryptedIncorrectAnswers);
         return new Question();
-    }
+    }*/
 
     // Decrypts a question using a Caesar cipher
-    public static Question decryptQuestion(Question encryptedQuestion, int shift) {
+    /*public static Question decryptQuestion(Question encryptedQuestion, int shift) {
         String decryptedQuestion = decrypt(encryptedQuestion.getQuestion(), shift);
         String decryptedCorrectAnswer = decrypt(encryptedQuestion.getCorrect_answer(), shift);
         String[] decryptedIncorrectAnswers = new String[encryptedQuestion.getIncorrect_answers().length];
@@ -74,5 +74,5 @@ public class Encrypt {
         return new Question(encryptedQuestion.getCategory(), encryptedQuestion.getType(),
                 encryptedQuestion.getDifficulty(), decryptedQuestion,
                 decryptedCorrectAnswer, decryptedIncorrectAnswers);
-    }
+    }*/
 }

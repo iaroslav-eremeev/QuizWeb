@@ -1,6 +1,5 @@
 package filter;
 
-
 import DAO.DAO;
 import modelDB.UserDB;
 
@@ -16,7 +15,6 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override

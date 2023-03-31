@@ -5,7 +5,7 @@ import util.Difficulty;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Question {
+/*public class Question {
     private Category category;
     private String type;
     private Difficulty difficulty;
@@ -100,4 +100,4 @@ public class Question {
                 ", incorrect_answers=" + Arrays.toString(incorrect_answers) +
                 '}';
     }
-}
+}*/
