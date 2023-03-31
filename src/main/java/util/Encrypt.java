@@ -3,10 +3,20 @@ package util;
 import modelDB.Category;
 import modelDB.Difficulty;
 import modelDB.Question;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class Encrypt {
+
+    public static String generateHash() {
+        int length = 10;
+        boolean useLetters = true;
+        boolean useNumbers = true;
+        return DigestUtils.md5Hex(RandomStringUtils.random(length, useLetters, useNumbers));
+    }
 
     // Encrypts a string using a Caesar cipher
     public static String encrypt(String input, int shift) {
