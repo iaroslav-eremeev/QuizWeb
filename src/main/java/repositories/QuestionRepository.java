@@ -3,8 +3,7 @@ package repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.ResponseResult;
-import modelDB.Question;
-import modelDB.Quiz;
+import modelDB.QuizDB;
 import util.URLHelper;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class QuestionRepository {
     }
 
     // Method to download the list of questions from the API
-    public List<Question> downloadQuestions(Quiz quiz) throws IOException {
+    public List<Question> downloadQuestions(QuizDB quiz) throws IOException {
         try (InputStream inputStream = URLHelper.getData("https://opentdb.com/api.php?" +
                 "amount=" + quiz.getNumberOfQuestions() + "&category=" + quiz.getCategory().getId() +
                 "&difficulty=" + quiz.getDifficulty().name().toLowerCase() +

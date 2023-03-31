@@ -1,13 +1,9 @@
 package util;
 
-import modelDB.Category;
-import modelDB.Difficulty;
-import modelDB.Question;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
 public class Encrypt {
 

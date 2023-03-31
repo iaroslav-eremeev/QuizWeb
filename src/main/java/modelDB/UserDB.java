@@ -13,12 +13,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class User {
+public class UserDB {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "login", nullable = false, unique = true)
     @NonNull
@@ -34,9 +34,9 @@ public class User {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<QuizDB> quizzes = new ArrayList<>();
 
-    public void addQuiz(Quiz quiz){
+    public void addQuiz(QuizDB quiz){
         this.quizzes.add(quiz);
     }
 }

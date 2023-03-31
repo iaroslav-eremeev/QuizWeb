@@ -1,5 +1,7 @@
 package modelLocal;
 
+import util.Difficulty;
+
 import java.util.Arrays;
 import java.util.Objects;
 

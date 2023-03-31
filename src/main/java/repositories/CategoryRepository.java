@@ -2,7 +2,6 @@ package repositories;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import modelLocal.Category;
 import util.URLHelper;
 
 import java.io.IOException;
