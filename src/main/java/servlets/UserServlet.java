@@ -1,6 +1,7 @@
 package servlets;
 
 import DAO.DAO;
+import com.google.gson.Gson;
 import modelDB.User;
 import util.Encrypt;
 import util.Unicode;
@@ -52,10 +53,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
+        Unicode.setUnicode(req, resp);
         resp.setContentType("application/json");
-
-        req.setCharacterEncoding("utf-8");
         try {
             resp.getWriter().write(new Gson().toJson(DAO.getAllObjects(User.class)));
         } catch (Exception e) {
@@ -65,14 +64,11 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-
-        req.setCharacterEncoding("utf-8");
-
+        Unicode.setUnicode(req, resp);
         String id = req.getParameter("id");
         if (id != null) {
             try {
-                DAO.deleteObjectById(Long.valueOf(id), User.class);
+                DAO.deleteObjectById(Math.toIntExact(Long.parseLong(id)), User.class);
             } catch (Exception e) {
                 resp.setStatus(200);
             }
