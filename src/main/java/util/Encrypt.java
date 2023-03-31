@@ -1,8 +1,8 @@
 package util;
 
-import model.Category;
-import model.Difficulty;
-import model.Question;
+import modelDB.Category;
+import modelDB.Difficulty;
+import modelDB.Question;
 
 import java.util.List;
 

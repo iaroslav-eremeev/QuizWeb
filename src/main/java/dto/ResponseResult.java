@@ -3,7 +3,6 @@ package dto;
 public class ResponseResult<T> {
     private int response_code;
     private T results;
-
     public ResponseResult() {
     }
 

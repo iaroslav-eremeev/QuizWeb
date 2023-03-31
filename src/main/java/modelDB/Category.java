@@ -1,4 +1,4 @@
-package model;
+package modelDB;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,8 +15,10 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @OneToMany(mappedBy = "category")
     @JoinColumn(name = "quiz_id", nullable = false)
     private List<Quiz> quizzes;

@@ -1,4 +1,4 @@
-package model;
+package modelDB;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -22,20 +22,26 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     @Column(name = "number_of_questions", nullable = false)
     private int numberOfQuestions;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
     @Column(name = "difficulty", nullable = false)
     private Difficulty difficulty;
+
     @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private List<Question> questions;
+
     @Column(name = "date")
     private Date date;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

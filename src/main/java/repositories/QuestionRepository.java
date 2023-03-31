@@ -3,8 +3,8 @@ package repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.ResponseResult;
-import model.Question;
-import model.Quiz;
+import modelDB.Question;
+import modelDB.Quiz;
 import util.URLHelper;
 
 import java.io.IOException;

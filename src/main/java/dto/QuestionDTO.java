@@ -2,15 +2,10 @@ package dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import model.Difficulty;
-import org.hibernate.annotations.Cascade;
+import modelDB.Difficulty;
 
-import javax.persistence.*;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +17,6 @@ public class QuestionDTO {
     private Difficulty difficulty;
     private String question;
     private String correct_answer;
-    @NonNull
     private List<String> incorrectAnswers;
     private QuizDTO quiz;
 

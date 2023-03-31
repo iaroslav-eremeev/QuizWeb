@@ -1,4 +1,4 @@
-package model;
+package modelDB;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"login"})})
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
 public class User {
 
@@ -21,13 +21,12 @@ public class User {
     private int id;
 
     @Column(name = "login", nullable = false, unique = true)
+    @NonNull
     private String login;
 
     @Column(name = "password", nullable = false)
+    @NonNull
     private String password;
-
-    @Column(name = "name", nullable = false)
-    private String name;
 
     private String hash;
 
