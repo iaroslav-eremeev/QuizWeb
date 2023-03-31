@@ -6,14 +6,14 @@ $('#btn-go-login').click(function () {
 
 $('#btn-sign-up').click(function () {
         $.ajax({
-            url: 'reg',
+            url: 'registration',
             method: "POST",
-            data: {"login" : $('#email').val(), "password" : $('#password').val()},
+            data: {"login" : $('#login').val(), "password" : $('#password').val()},
             success: [function (data) {
                 $('.popup-fade').fadeIn();
             }],
             error: [function () {
-                alert("Пользователь с таким логином уже зарегистрирован!!!")
+                alert("This login is already taken!");
             }]
         })
     }
