@@ -7,6 +7,53 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        /* Set the colors of the buttons */
+        .container .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .container .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+
+        .container .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+        }
+
+        .container .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+
+        /* Center align the login and password fields */
+        .container .form-group {
+            text-align: center;
+        }
+
+        /* Center align the login and sign-up buttons */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Vertically center the form */
+        .container form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         .popup-fade {
             display: none;
         }
@@ -44,15 +91,17 @@
                 <h1>Registration</h1>
             </div>
             <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="login">Login</label>
+                <input type="login" class="form-control" id="login" aria-describedby="loginHelp" placeholder="Enter login">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
-            <button type="button" class="btn btn-primary" id="btn-sign-up">Sign Up</button>
-            <button type="button" class="btn btn-warning" id="btn-go-login">Go to Login</button>
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary btn-lg" id="btn-sign-up">Sign Up</button>
+                <button type="button" class="btn btn-warning btn-lg" id="btn-go-login">Go to Login</button>
+            </div>
         </form>
     </form>
 </div>
@@ -60,7 +109,7 @@
 
 <div class="popup-fade">
     <div class="popup">
-        <p>Пользователь успешно зарегистрирован!!!</p>
+        <p>Registration successful!</p>
         <button class="btn btn-success" id="btn-ok">Ok</button>
     </div>
 </div>
