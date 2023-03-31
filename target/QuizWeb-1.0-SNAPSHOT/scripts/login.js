@@ -8,12 +8,12 @@ $('#btn-login').click(function () {
         $.ajax({
             url: 'login',
             method: "POST",
-            data: {"login": $('#email').val(), "password": $('#password').val()},
+            data: {"login": $('#login').val(), "password": $('#password').val()},
             success: [function (result) {
                 $(location).attr('href', "http://localhost:8080/QuizWeb/index.html");
             }],
             error: [function (result) {
-                alert("Неверный логин или пароль!!!")
+                alert("Wrong login or password!")
             }]
         })
     }

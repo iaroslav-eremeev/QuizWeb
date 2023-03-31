@@ -30,19 +30,14 @@ public class UserServlet extends HttpServlet {
                     String hash = Encrypt.generateHash();
                     user.setHash(hash);
                     DAO.updateObject(user);
-                    if (hash != null) {
-                        Cookie cookie = new Cookie("hash", hash);
-                        cookie.setMaxAge(30 * 60);
-                        cookie.setPath("/");
-
-                        resp.addCookie(cookie);
-                    } else {
-                        throw new Exception();
-                    }
+                    Cookie cookie = new Cookie("hash", hash);
+                    cookie.setMaxAge(30 * 60);
+                    cookie.setPath("/");
+                    resp.addCookie(cookie);
                 }
                 else{
                     resp.setStatus(400);
-                    resp.getWriter().print("incorrect login or password");
+                    resp.getWriter().print("Incorrect login or password");
                 }
             } catch (Exception e) {
                 resp.setStatus(400);
