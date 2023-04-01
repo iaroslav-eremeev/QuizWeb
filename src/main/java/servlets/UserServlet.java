@@ -40,9 +40,13 @@ public class UserServlet extends HttpServlet {
                     resp.getWriter().print("Incorrect login or password");
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 resp.setStatus(400);
                 resp.getWriter().println(e.getMessage());
             }
+        }
+        else {
+            System.out.println("Login or password are incorrect");
         }
     }
 
