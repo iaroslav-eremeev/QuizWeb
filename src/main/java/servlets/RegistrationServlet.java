@@ -36,6 +36,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.setStatus(400);
             resp.getWriter().println("User with this login already exists");
         } catch (Exception e) {
+            e.printStackTrace();
             resp.setStatus(400);
             resp.getWriter().println(e.getMessage());
         }

@@ -7,10 +7,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
-
-/**
- * @author Kotov Kirill
- */
 public class DAO {
     private static Session openedSession = null;
     public static void addObject(Object obj) {
