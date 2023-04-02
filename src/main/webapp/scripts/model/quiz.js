@@ -1,7 +1,7 @@
 import {Question} from './question.js';
 import {Difficulty} from './difficulty.js';
-import {QuestionRepository} from './questionRepository.js';
-import {Encrypt} from './encrypt.js';
+import {QuestionRepository} from '../repositories/questionRepository.js';
+import {Encrypt} from '../util/encrypt.js';
 import he from 'he';
 
 class Quiz {

@@ -1,6 +1,6 @@
-import { Question } from './question.js';
-import { Quiz } from './quiz.js';
-import { ResponseResult } from "./responseResult";
+import { Question } from '../model/question.js';
+import { Quiz } from '../model/quiz.js';
+import { ResponseResult } from "../dto/responseResult";
 import fetch from 'node-fetch';
 
 class QuestionRepository {

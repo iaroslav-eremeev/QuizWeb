@@ -1,5 +1,5 @@
-import { Difficulty } from './difficulty.js';
-import { Question } from './question.js';
+import { Difficulty } from '../model/difficulty.js';
+import { Question } from '../model/question.js';
 
 class Encrypt {
     // Encrypts a string using a Caesar cipher
