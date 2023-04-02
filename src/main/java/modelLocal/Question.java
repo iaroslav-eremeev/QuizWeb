@@ -2,11 +2,8 @@ package modelLocal;
 
 import util.Difficulty;
 
-import java.util.Arrays;
-import java.util.Objects;
-
-/*public class Question {
-    private Category category;
+public class Question {
+    private String category;
     private String type;
     private Difficulty difficulty;
     private String question;
@@ -16,7 +13,7 @@ import java.util.Objects;
     public Question() {
     }
 
-    public Question(Category category, String type, Difficulty difficulty, String question,
+    public Question(String category, String type, Difficulty difficulty, String question,
                     String correct_answer, String[] incorrect_answers) {
         this.category = category;
         this.type = type;
@@ -26,11 +23,11 @@ import java.util.Objects;
         this.incorrect_answers = incorrect_answers;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -74,30 +71,4 @@ import java.util.Objects;
         this.incorrect_answers = incorrect_answers;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Question question1 = (Question) o;
-        return Objects.equals(category, question1.category) && Objects.equals(type, question1.type) && difficulty == question1.difficulty && Objects.equals(question, question1.question) && Objects.equals(correct_answer, question1.correct_answer) && Arrays.equals(incorrect_answers, question1.incorrect_answers);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(category, type, difficulty, question, correct_answer);
-        result = 31 * result + Arrays.hashCode(incorrect_answers);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "category=" + category +
-                ", type='" + type + '\'' +
-                ", difficulty=" + difficulty +
-                ", question='" + question + '\'' +
-                ", correct_answer='" + correct_answer + '\'' +
-                ", incorrect_answers=" + Arrays.toString(incorrect_answers) +
-                '}';
-    }
-}*/
+}
