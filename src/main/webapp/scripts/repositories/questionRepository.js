@@ -1,6 +1,4 @@
-import { Question } from '../model/question.js';
-import { Quiz } from '../model/quiz.js';
-import { ResponseResult } from "../dto/responseResult";
+import {Question} from '../model/question.js';
 import fetch from 'node-fetch';
 
 class QuestionRepository {
@@ -23,8 +21,8 @@ class QuestionRepository {
                 throw new Error(`There are no questions from this category`);
             }
             this.questions = results.map(result => {
-                const question = new Question(result.category, result.type, result.difficulty, result.question, result.correct_answer, result.incorrect_answers);
-                return question;
+                return new Question(result.category, result.type, result.difficulty,
+                    result.question, result.correct_answer, result.incorrect_answers);
             });
             return this.questions;
         } catch (error) {
