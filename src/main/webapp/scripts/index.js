@@ -1,6 +1,3 @@
-import { Question } from "./model/question.js";
-import { Quiz } from "./model/quiz.js";
-
 $('#btn-from-internet').click(function() {
     // Check if the checkbox is checked
     let showCorrectAnswers = $('#showCorrectAnswers').prop('checked');
@@ -18,13 +15,16 @@ $('#showCorrectAnswers').click(function() {
 
 // Load file on click
 $('#btn-from-file').click(function() {
+    console.log("Button clicked");
     // Get the last directory path from local storage or set it to user root
     const lastDirPath = localStorage.getItem('dirPath') || "";
     // Open a file chooser dialog and set the initial directory
-    $('<input type="file">').change(function() {
-        const file = this.files[0];
+    const input = document.createElement("input");
+    input.type = "file";
+    input.onchange = function (event) {
+        const file = event.target.files[0];
         if (file) {
-    // Store the new directory path in local storage
+            // Store the new directory path in local storage
             localStorage.setItem('dirPath', file.webkitRelativePath || "");
             const fileExt = file.name.split('.').pop().toLowerCase();
             // If JSON file chosen
@@ -64,7 +64,8 @@ $('#btn-from-file').click(function() {
                 alert('Invalid file type. Please choose a JSON or CSV file.');
             }
         }
-    }).click();
+    };
+    input.click();
 });
 
 // Function to decrypt the questions in a quiz object
