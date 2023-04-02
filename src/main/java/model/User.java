@@ -1,4 +1,4 @@
-package modelDB;
+package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
-public class UserDB {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,9 @@ public class UserDB {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private List<QuizDB> quizzes = new ArrayList<>();
+    private List<Quiz> quizzes = new ArrayList<>();
 
-    public void addQuiz(QuizDB quiz){
+    public void addQuiz(Quiz quiz){
         this.quizzes.add(quiz);
     }
 }

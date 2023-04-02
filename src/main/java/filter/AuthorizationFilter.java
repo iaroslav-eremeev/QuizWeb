@@ -1,7 +1,7 @@
 package filter;
 
 import DAO.DAO;
-import modelDB.UserDB;
+import model.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -44,7 +44,7 @@ public class AuthorizationFilter implements Filter {
         //Если запрос пришел со страницы с входом или сессия не пуста даем добро следовать дальше
         //Если нет ридерект на страницу входа
         if (request.getRequestURI().endsWith("js") || loginRequest || registerRequest
-                || value != null && DAO.getObjectByParam("hash", value, UserDB.class) != null) {
+                || value != null && DAO.getObjectByParam("hash", value, User.class) != null) {
             filterChain.doFilter(request, response);
         } else {
             response.sendRedirect(loginURI + ".html");

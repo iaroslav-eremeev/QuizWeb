@@ -2,7 +2,7 @@ package servlets;
 
 import DAO.DAO;
 import com.google.gson.Gson;
-import modelDB.UserDB;
+import model.User;
 import util.Encrypt;
 import util.Unicode;
 
@@ -24,7 +24,7 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
         if (login != null && password != null) {
             try {
-                UserDB user = (UserDB) DAO.getObjectByParams(new String[]{"login", "password"}, new Object[]{login, password}, UserDB.class);
+                User user = (User) DAO.getObjectByParams(new String[]{"login", "password"}, new Object[]{login, password}, User.class);
                 DAO.closeOpenedSession();
                 if (user != null) {
                     String hash = Encrypt.generateHash();
@@ -55,7 +55,7 @@ public class UserServlet extends HttpServlet {
         Unicode.setUnicode(req, resp);
         resp.setContentType("application/json");
         try {
-            resp.getWriter().write(new Gson().toJson(DAO.getAllObjects(UserDB.class)));
+            resp.getWriter().write(new Gson().toJson(DAO.getAllObjects(User.class)));
         } catch (Exception e) {
             resp.setStatus(200);
         }
@@ -67,7 +67,7 @@ public class UserServlet extends HttpServlet {
         String id = req.getParameter("id");
         if (id != null) {
             try {
-                DAO.deleteObjectById(Math.toIntExact(Long.parseLong(id)), UserDB.class);
+                DAO.deleteObjectById(Math.toIntExact(Long.parseLong(id)), User.class);
             } catch (Exception e) {
                 resp.setStatus(200);
             }

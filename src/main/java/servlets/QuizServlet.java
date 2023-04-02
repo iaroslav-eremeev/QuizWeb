@@ -2,8 +2,8 @@ package servlets;
 
 import DAO.DAO;
 import com.google.gson.Gson;
-import modelDB.QuizDB;
-import modelDB.UserDB;
+import model.Quiz;
+import model.User;
 import util.Difficulty;
 import util.Unicode;
 
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet("/quiz")
@@ -31,15 +30,15 @@ public class QuizServlet extends HttpServlet {
                 && successRateStr != null && userIdStr != null) {
             int numberOfQuestions = Integer.parseInt(numberOfQuestionsStr);
             double successRate = Double.parseDouble(successRateStr);
-            UserDB userDB = (UserDB) DAO.getObjectById(Integer.parseInt(userIdStr), UserDB.class);
+            User user = (User) DAO.getObjectById(Integer.parseInt(userIdStr), User.class);
             try {
-                QuizDB quizDB = new QuizDB();
-                quizDB.setNumberOfQuestions(numberOfQuestions);
-                quizDB.setCategory(category);
-                quizDB.setDifficulty(Difficulty.valueOf(difficulty));
-                quizDB.setSuccessRate(successRate);
-                quizDB.setUser(userDB);
-                DAO.addObject(quizDB);
+                Quiz quiz = new Quiz();
+                quiz.setNumberOfQuestions(numberOfQuestions);
+                quiz.setCategory(category);
+                quiz.setDifficulty(Difficulty.valueOf(difficulty));
+                quiz.setSuccessRate(successRate);
+                quiz.setUser(user);
+                DAO.addObject(quiz);
                 resp.setStatus(200);
             } catch (Exception e) {
                 resp.setStatus(400);
@@ -57,7 +56,7 @@ public class QuizServlet extends HttpServlet {
         String userId = req.getParameter("user_id");
         if (userId != null) {
             try {
-                List<QuizDB> quizzes = DAO.getObjectsByParam("user.id", Long.parseLong(userId), QuizDB.class);
+                List<Quiz> quizzes = DAO.getObjectsByParam("user.id", Long.parseLong(userId), Quiz.class);
                 resp.setContentType("application/json");
                 resp.getWriter().write(new Gson().toJson(quizzes));
             } catch (Exception e) {

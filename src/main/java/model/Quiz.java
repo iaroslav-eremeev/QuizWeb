@@ -1,4 +1,4 @@
-package modelDB;
+package model;
 
 import lombok.*;
 import util.Difficulty;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "quizzes")
 @Data
 @NoArgsConstructor (force = true)
-public class QuizDB {
+public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,5 +33,5 @@ public class QuizDB {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserDB user;
+    private User user;
 }

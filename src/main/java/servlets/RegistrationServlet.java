@@ -2,7 +2,7 @@ package servlets;
 
 import DAO.DAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import modelDB.UserDB;
+import model.User;
 import util.Unicode;
 
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class RegistrationServlet extends HttpServlet {
             return;
         }
         try {
-            UserDB user = new UserDB(login, password);
+            User user = new User(login, password);
             DAO.addObject(user);
             resp.getWriter().write(new ObjectMapper().writeValueAsString(user));
         } catch (IllegalArgumentException e) {
