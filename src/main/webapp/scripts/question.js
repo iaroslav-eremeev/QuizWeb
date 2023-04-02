@@ -65,3 +65,5 @@ export class Question {
         incorrect_answers: ${JSON.stringify(this.incorrect_answers)} }`;
     }
 }
+
+export { Question };
