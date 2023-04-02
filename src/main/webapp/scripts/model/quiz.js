@@ -1,12 +1,12 @@
-import {Question} from './question.js';
-import {Difficulty} from './difficulty.js';
-import {QuestionRepository} from '../repositories/questionRepository.js';
-import {Encrypt} from '../util/encrypt.js';
+import { Question } from './question.js';
+import { Difficulty } from './difficulty.js';
+import { QuestionRepository } from '../repositories/questionRepository.js';
+import { Encrypt } from '../util/encrypt.js';
 import he from 'he';
-import {Category} from './category.js';
+import { Category } from './category.js';
 
 class Quiz {
-    constructor(numberOfQuestions, category, difficulty, questions) {
+    constructor(numberOfQuestions, category, difficulty, questions = []) {
         this.numberOfQuestions = numberOfQuestions;
         this.category = new Category(category);
         this.difficulty = difficulty;
@@ -81,8 +81,8 @@ class Quiz {
 
     toString() {
         return `Quiz{ numberOfQuestions=${this.numberOfQuestions}, 
-        category=${this.category.getName()}, difficulty=${this.difficulty}, 
-        questions=${JSON.stringify(this.questions)} }`;
+    category=${this.category.getName()}, difficulty=${this.difficulty.getDifficulty()}, 
+    questions=${JSON.stringify(this.questions)} }`;
     }
 
 }
