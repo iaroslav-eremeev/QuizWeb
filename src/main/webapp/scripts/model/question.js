@@ -1,8 +1,9 @@
 import { Difficulty } from './difficulty.js';
+import { Category } from './category.js';
 
 export class Question {
     constructor(category, type, difficulty, question, correct_answer, incorrect_answers) {
-        this.category = category;
+        this.category = new Category(category);
         this.type = type;
         this.difficulty = difficulty;
         this.question = question;
@@ -11,11 +12,11 @@ export class Question {
     }
 
     getCategory() {
-        return this.category;
+        return this.category.getName();
     }
 
     setCategory(category) {
-        this.category = category;
+        this.category = new Category(category);
     }
 
     getType() {
@@ -59,11 +60,9 @@ export class Question {
     }
 
     toString() {
-        return `Question { category: ${this.category}, 
+        return `Question { category: ${this.category.getName()}, 
         type: ${this.type}, difficulty: ${this.difficulty}, 
         question: ${this.question}, correct_answer: ${this.correct_answer}, 
         incorrect_answers: ${JSON.stringify(this.incorrect_answers)} }`;
     }
 }
-
-export { Question };

@@ -3,11 +3,12 @@ import {Difficulty} from './difficulty.js';
 import {QuestionRepository} from '../repositories/questionRepository.js';
 import {Encrypt} from '../util/encrypt.js';
 import he from 'he';
+import {Category} from './category.js';
 
 class Quiz {
     constructor(numberOfQuestions, category, difficulty, questions) {
         this.numberOfQuestions = numberOfQuestions;
-        this.category = category;
+        this.category = new Category(category);
         this.difficulty = difficulty;
         this.questions = questions;
     }
@@ -21,7 +22,7 @@ class Quiz {
     }
 
     setCategory(category) {
-        this.category = category;
+        this.category = new Category(category);
     }
 
     getCategory() {
@@ -80,7 +81,7 @@ class Quiz {
 
     toString() {
         return `Quiz{ numberOfQuestions=${this.numberOfQuestions}, 
-        category=${this.category}, difficulty=${this.difficulty}, 
+        category=${this.category.getName()}, difficulty=${this.difficulty}, 
         questions=${JSON.stringify(this.questions)} }`;
     }
 
