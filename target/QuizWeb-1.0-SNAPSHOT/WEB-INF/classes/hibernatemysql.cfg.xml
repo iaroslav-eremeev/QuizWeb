@@ -13,7 +13,7 @@
     <property name="show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
 
-    <mapping class="modelDB.UserDB"/>
-    <mapping class="modelDB.QuizDB"/>
+    <mapping class="model.User"/>
+    <mapping class="model.Quiz"/>
   </session-factory>
 </hibernate-configuration>
