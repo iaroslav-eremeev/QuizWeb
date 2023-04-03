@@ -15,35 +15,64 @@ $(document).ready(function () {
         }
     });
 
-
     // Populate difficulty dropdown
-    var difficultySelect = $("#difficulty");
+    let difficultySelect = $("#difficulty");
     difficultySelect.append($("<option></option>").attr("value", "").text("Any Difficulty"));
     difficultySelect.append($("<option></option>").attr("value", "easy").text("Easy"));
     difficultySelect.append($("<option></option>").attr("value", "medium").text("Medium"));
     difficultySelect.append($("<option></option>").attr("value", "hard").text("Hard"));
 
 // Save button click handler
-    $("#btn-save").click(function () {
-        var numberOfQuestions = $("#numberOfQuestions").val();
-        var category = $("#category").val();
-        var difficulty = $("#difficulty").val();
+    $("#btn-save").click(async function () {
+        const numberOfQuestions = $("#numberOfQuestions").val();
+        const category = $("#category").val();
+        const difficulty = $("#difficulty").val();
 
-        localStorage.setItem("numberOfQuestions", numberOfQuestions);
-        localStorage.setItem("category", category);
-        localStorage.setItem("difficulty", difficulty);
+        const quiz = new Quiz(numberOfQuestions, category, difficulty);
+        await quiz.downloadQuestions();
 
-        alert("Quiz settings saved!");
+        const fileChooser = $('<input type="file" />').attr('accept', '.json,.csv').hide();
+        $('body').append(fileChooser);
+        fileChooser.change(async function() {
+            const file = $(this)[0].files[0];
+            if (file) {
+                const extension = file.name.split('.').pop();
+                if (extension === 'json') {
+                    const data = JSON.stringify(quiz);
+                    const blob = new Blob([data], {type: 'application/json'});
+                    const link = document.createElement('a');
+                    link.download = file.name;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                } else if (extension === 'csv') {
+                    const header = ['numberOfQuestions', 'category', 'difficulty', 'question', 'correct_answer', 'incorrect_answers'];
+                    const rows = [header];
+                    quiz.getQuestions().forEach(function(question) {
+                        const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), question.getQuestion(), question.getCorrect_answer(), question.getIncorrect_answers().join('|')];
+                        rows.push(row);
+                    });
+                    const csvContent = rows.map(e => e.join(',')).join('\n');
+                    const blob = new Blob([csvContent], {type: 'text/csv'});
+                    const link = document.createElement('a');
+                    link.download = file.name;
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                }
+            }
+        });
+        fileChooser.click();
     });
 
 // Start button click handler
     $("#btn-start").click(function () {
-        var numberOfQuestions = localStorage.getItem("numberOfQuestions");
-        var category = localStorage.getItem("category");
-        var difficulty = localStorage.getItem("difficulty");
-
+        const numberOfQuestions = $("#numberOfQuestions").val();
+        const category = $("#category").val();
+        const difficulty = $("#difficulty").val();
         if (numberOfQuestions && category && difficulty) {
-            window.location.href = "quiz.html";
+            localStorage.setItem("numberOfQuestions", numberOfQuestions);
+            localStorage.setItem("category", category);
+            localStorage.setItem("difficulty", difficulty);
+            window.location.href = "game.html";
         } else {
             alert("Please enter all quiz settings and save them before starting the quiz.");
         }
