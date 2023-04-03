@@ -1,3 +1,5 @@
+import {Quiz} from "./model/quiz";
+
 $(document).ready(function () {
 // Populate category dropdown
     $.ajax({

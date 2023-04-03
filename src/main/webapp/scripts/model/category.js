@@ -1,22 +1,8 @@
-import { CategoryRepository } from '../repositories/categoryRepository.js';
-
 class Category {
-    constructor(name) {
-        this.id = 0;
+
+    constructor(id, name) {
+        this.id = id;
         this.name = name;
-        const categoryRepository = new CategoryRepository();
-        categoryRepository.downloadCategories()
-            .then(() => {
-                for (const category of categoryRepository.getCategories()) {
-                    if (category.getName() === this.name) {
-                        this.id = category.getId();
-                        break;
-                    }
-                }
-            })
-            .catch(error => {
-                throw new Error(`Failed to download categories: ${error}`);
-            });
     }
 
     getId() {
