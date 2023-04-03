@@ -48,31 +48,37 @@
             justify-content: center;
             align-items: center;
         }
+        #numberOfQuestions {
+            width: 100%;
+        }
+        #category, #difficulty {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <form>
         <div class="form-group text-center">
-            <h1>Number of questions</h1>
+            <h2>Number of questions</h2>
         </div>
         <div class="form-group text-center">
-            <input type="text" class="form-control" id="numberOfQuestions" placeholder="Enter a number from 1 to 10">
+            <input type="text" class="form-control" id="numberOfQuestions" placeholder="Enter a number from 1 to 10" style="width: 70%;">
         </div>
         <div class="form-group text-center">
-            <h1>Select category and difficulty</h1>
+            <h2>Select category and difficulty</h2>
         </div>
-        <div class="form-group row">
-            <label for="category" class="col-sm-3 col-form-label text-right">Select category:</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="category"></select>
-            </div>
+        <div class="form-group">
+            <label for="category">Select category:</label>
         </div>
-        <div class="form-group row">
-            <label for="difficulty" class="col-sm-3 col-form-label text-right">Select difficulty:</label>
-            <div class="col-sm-9">
-                <select class="form-control" id="difficulty"></select>
-            </div>
+        <div class="form-group">
+            <select id="category"></select>
+        </div>
+        <div class="form-group">
+            <label for="difficulty">Select difficulty:</label>
+        </div>
+        <div class="form-group">
+            <select id="difficulty"></select>
         </div>
         <div class="form-group text-center">
             <button type="button" class="btn btn-primary btn-lg" id="btn-save">Save</button>

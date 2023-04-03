@@ -2,14 +2,10 @@ import {Question} from '../model/question.js';
 import fetch from 'node-fetch';
 
 class QuestionRepository {
-    constructor() {
-        this.questions = [];
-    }
-
-    async downloadQuestions(quiz) {
-        const url = `https://opentdb.com/api.php?amount=${quiz.getNumberOfQuestions()}
-        &category=${quiz.getCategory().getId()}
-        &difficulty=${quiz.getDifficulty().toLowerCase()}&type=multiple`;
+    async downloadQuestions({ numberOfQuestions, category, difficulty }) {
+        const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}
+        &category=${category.getId()}
+        &difficulty=${difficulty.toLowerCase()}&type=multiple`;
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -17,8 +13,9 @@ class QuestionRepository {
             }
             const responseResult = await response.json();
             const { response_code, results } = responseResult;
-            if (response_code !== 0) {
-                throw new Error(`There are no questions from this category`);
+            // Add error handling to check if the returned data has the expected structure
+            if (response_code !== 0 || !Array.isArray(results)) {
+                throw new Error(`Failed to download questions: unexpected response format`);
             }
             this.questions = results.map(result => {
                 return new Question(result.category, result.type, result.difficulty,
@@ -26,16 +23,8 @@ class QuestionRepository {
             });
             return this.questions;
         } catch (error) {
-            throw new Error(`Failed to download questions: ${error}`);
+            throw new Error(`Failed to download questions: ${error.message}`);
         }
-    }
-
-    getQuestions() {
-        return this.questions;
-    }
-
-    setQuestions(questions) {
-        this.questions = questions;
     }
 }
 

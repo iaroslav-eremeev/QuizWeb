@@ -1,5 +1,3 @@
-import { Question } from './question.js';
-import { Difficulty } from './difficulty.js';
 import { QuestionRepository } from '../repositories/questionRepository.js';
 import { Encrypt } from '../util/encrypt.js';
 import he from 'he';
@@ -53,36 +51,24 @@ class Quiz {
             question.setQuestion(unescapedQuestion);
             const unescapedCorrectAnswer = he.decode(question.getCorrect_answer());
             question.setCorrect_answer(unescapedCorrectAnswer);
-            const unescapedIncorrectAnswers = new Array(question.getIncorrect_answers().length);
-            for (let j = 0; j < question.getIncorrect_answers().length; j++) {
-                unescapedIncorrectAnswers[j] = he.decode(question.getIncorrect_answers()[j]);
-            }
+            const unescapedIncorrectAnswers = question.getIncorrect_answers().map(answer => he.decode(answer));
             question.setIncorrect_answers(unescapedIncorrectAnswers);
         }
     }
 
     encryptQuestions(shift) {
-        const encryptedQuestions = [];
-        for (let i = 0; i < this.questions.length; i++) {
-            const encryptedQuestion = Encrypt.encryptQuestion(this.questions[i], shift);
-            encryptedQuestions.push(encryptedQuestion);
-        }
+        const encryptedQuestions = this.questions.map(question => Encrypt.encryptQuestion(question, shift));
         this.questions = encryptedQuestions;
     }
 
     decryptQuestions(shift) {
-        const decryptedQuestions = [];
-        for (let i = 0; i < this.questions.length; i++) {
-            const decryptedQuestion = Encrypt.decryptQuestion(this.questions[i], shift);
-            decryptedQuestions.push(decryptedQuestion);
-        }
+        const decryptedQuestions = this.questions.map(question => Encrypt.decryptQuestion(question, shift));
         this.questions = decryptedQuestions;
     }
 
+
     toString() {
-        return `Quiz{ numberOfQuestions=${this.numberOfQuestions}, 
-    category=${this.category.getName()}, difficulty=${this.difficulty.getDifficulty()}, 
-    questions=${JSON.stringify(this.questions)} }`;
+        return `Quiz{ numberOfQuestions=${this.numberOfQuestions}, category=${this.category.getName()}, difficulty=${this.difficulty.getDifficulty()}, questions=${JSON.stringify(this.questions)} }`;
     }
 
 }
