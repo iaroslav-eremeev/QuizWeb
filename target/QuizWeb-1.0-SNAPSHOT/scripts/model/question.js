@@ -1,4 +1,4 @@
-export class Question {
+class Question {
     constructor(categoryName, type, difficulty, question, correct_answer, incorrect_answers) {
         this.categoryName = categoryName;
         this.type = type;
@@ -67,3 +67,6 @@ export class Question {
         }`;
     }
 }
+
+export { Question };
+
