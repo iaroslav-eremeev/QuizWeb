@@ -15,6 +15,7 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
+            margin-top: 0.5rem
         }
         .btn-primary:hover {
             background-color: #0069d9;
@@ -23,6 +24,7 @@
         .btn-warning {
             background-color: #ffc107;
             border-color: #ffc107;
+            margin-top: 0.5rem
         }
         .btn-warning:hover {
             background-color: #e0a800;
@@ -41,18 +43,15 @@
             flex-direction: column;
             height: 100vh;
         }
-        /* Vertically center the form */
         form {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-        #numberOfQuestions {
-            width: 100%;
-        }
-        #category, #difficulty {
-            width: 100%;
+        #numberOfQuestions, #category, #difficulty {
+            width: 300px;
+            text-align: center;
         }
     </style>
 </head>
@@ -62,8 +61,8 @@
         <div class="form-group text-center">
             <h2>Number of questions</h2>
         </div>
-        <div class="form-group text-center">
-            <input type="text" class="form-control" id="numberOfQuestions" placeholder="Enter a number from 1 to 10" style="width: 70%;">
+        <div class="form-group">
+            <label for="numberOfQuestions"></label><input type="text" class="form-control" id="numberOfQuestions" placeholder="Enter a number from 1 to 10">
         </div>
         <div class="form-group text-center">
             <h2>Select category and difficulty</h2>
