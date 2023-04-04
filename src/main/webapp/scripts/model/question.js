@@ -97,9 +97,6 @@ class QuestionRepository {
             throw new Error(`Failed to download questions: ${error.message}`);
         }
     }
-
 }
 
-export { Question };
-export { QuestionRepository };
-
+export { Question, QuestionRepository };

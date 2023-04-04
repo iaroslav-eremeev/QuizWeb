@@ -1,6 +1,6 @@
-import { QuestionRepository } from '../repositories/questionRepository.js';
 import { Encrypt } from '../util/encrypt.js';
 import { Category } from './category.js';
+import { Question, QuestionRepository } from './question.js';
 
 class Quiz {
     constructor(numberOfQuestions, category, difficulty, questions = []) {
