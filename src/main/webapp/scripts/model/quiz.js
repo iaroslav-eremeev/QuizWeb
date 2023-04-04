@@ -1,6 +1,5 @@
 import { QuestionRepository } from '../repositories/questionRepository.js';
 import { Encrypt } from '../util/encrypt.js';
-import he from 'he';
 import { Category } from './category.js';
 
 class Quiz {
@@ -47,14 +46,42 @@ class Quiz {
         const questionRepository = new QuestionRepository();
         this.questions = await questionRepository.downloadQuestions(this);
         for (let question of this.questions) {
-            const unescapedQuestion = he.decode(question.getQuestion());
+            const unescapedQuestion = this.decodeHtmlEntities(question.getQuestion());
             question.setQuestion(unescapedQuestion);
-            const unescapedCorrectAnswer = he.decode(question.getCorrect_answer());
+            const unescapedCorrectAnswer = this.decodeHtmlEntities(question.getCorrect_answer());
             question.setCorrect_answer(unescapedCorrectAnswer);
-            const unescapedIncorrectAnswers = question.getIncorrect_answers().map(answer => he.decode(answer));
+            const unescapedIncorrectAnswers = question.getIncorrect_answers().map(answer => this.decodeHtmlEntities(answer));
             question.setIncorrect_answers(unescapedIncorrectAnswers);
         }
     }
+
+    decodeHtmlEntities(text) {
+        const entities = [    ['amp', '&'],
+            ['apos', '\''],
+            ['#x27', '\''],
+            ['#x2F', '/'],
+            ['#39', '\''],
+            ['#47', '/'],
+            ['lt', '<'],
+            ['gt', '>'],
+            ['nbsp', ' '],
+            ['ldquo', '"'],
+            ['rdquo', '"'],
+            ['lsquo', '\''],
+            ['rsquo', '\''],
+            ['hellip', '...'],
+            ['ndash', '-'],
+            ['mdash', '-'],
+            ['iexcl', '¡'],
+            ['iquest', '¿']
+        ];
+
+        for (let i = 0, max = entities.length; i < max; ++i) {
+            text = text.replace(new RegExp(`&${entities[i][0]};`, 'g'), entities[i][1]);
+        }
+        return text;
+    }
+
 
     encryptQuestions(shift) {
         const encryptedQuestions = this.questions.map(question => Encrypt.encryptQuestion(question, shift));
