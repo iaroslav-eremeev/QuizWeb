@@ -70,9 +70,7 @@ class Question {
 
 class QuestionRepository {
     async downloadQuestions({ numberOfQuestions, category, difficulty }) {
-        const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}
-                    &category=${category.getId()}
-                    &difficulty=${difficulty.toLowerCase()}&type=multiple`;
+        const url = `https://opentdb.com/api.php?amount=${numberOfQuestions}&category=${category.getId()}&difficulty=${difficulty.toLowerCase()}&type=multiple`;
         try {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url);

@@ -17,13 +17,12 @@ $(document).ready(function () {
         }
     });
 
-
     // Populate difficulty dropdown
-    /*let difficultySelect = $("#difficulty");
+    let difficultySelect = $("#difficulty");
     difficultySelect.append($("<option></option>").attr("value", "").text("Any Difficulty"));
     difficultySelect.append($("<option></option>").attr("value", "easy").text("Easy"));
     difficultySelect.append($("<option></option>").attr("value", "medium").text("Medium"));
-    difficultySelect.append($("<option></option>").attr("value", "hard").text("Hard"));*/
+    difficultySelect.append($("<option></option>").attr("value", "hard").text("Hard"));
 
 // Save button click handler
     $("#btn-save").click(async function () {
