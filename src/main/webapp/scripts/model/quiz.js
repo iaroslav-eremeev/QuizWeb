@@ -93,11 +93,9 @@ class Quiz {
         this.questions = decryptedQuestions;
     }
 
-
     toString() {
         return `Quiz{ numberOfQuestions=${this.numberOfQuestions}, category=${this.category.getName()}, difficulty=${this.difficulty.getDifficulty()}, questions=${JSON.stringify(this.questions)} }`;
     }
-
 }
 
 export { Quiz };

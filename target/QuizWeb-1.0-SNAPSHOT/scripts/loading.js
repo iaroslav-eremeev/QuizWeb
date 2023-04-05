@@ -31,12 +31,33 @@ $(document).ready(function () {
         const quiz = new Quiz(numberOfQuestions, category, difficulty);
         await quiz.getQuizQuestions();
 
-        const extension = $("#extension").val(); // get the file extension from a dropdown list
-        let data = "";
-        if (extension === 'json') {
-            data = JSON.stringify(quiz); // generate the appropriate file data
+        let extension = '';
+        const isJson = confirm('Do you want to save the quiz as a JSON file?');
+        if (isJson) {
+            extension = 'json';
+        } else {
+            const isCsv = confirm('Do you want to save the quiz as a CSV file?');
+            if (isCsv) {
+                extension = 'csv';
+            }
+            else {
+                // If the user didn't choose a file format, we can't save the file
+                alert('You must choose a file format to save the quiz!');
+                return;
+            }
         }
-        else if (extension === 'csv') {
+
+        const filename = prompt('Please enter a filename (without extension) for your quiz:');
+        if (!filename) {
+            // If the user didn't provide a filename, we can't save the file
+            return;
+        }
+
+        let data = '';
+        if (extension === 'json') {
+            data = JSON.stringify(quiz);
+        } else if (extension === 'csv') {
+            // Create CSV data
             const header = ['numberOfQuestions', 'category', 'difficulty', 'question', 'correct_answer', 'incorrect_answers'];
             const rows = [header];
             quiz.getQuestions().forEach(function(question) {
@@ -45,15 +66,14 @@ $(document).ready(function () {
             });
             data = rows.map(e => e.join(',')).join('\n');
         }
-        const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'}); // create a blob from the data
 
+        // Create a blob and open the save dialog
+        const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'});
         const fileSaver = document.createElement('a');
         fileSaver.href = URL.createObjectURL(blob);
-        fileSaver.download = `quiz.${extension}`; // provide a default file name
-
-        fileSaver.dispatchEvent(new MouseEvent('click')); // trigger the save dialog
-
-        URL.revokeObjectURL(fileSaver.href); // clean up the object URL after the file has been saved
+        fileSaver.download = `${filename}.${extension}`; // Use the filename and extension provided by the user
+        fileSaver.dispatchEvent(new MouseEvent('click'));
+        URL.revokeObjectURL(fileSaver.href);
     });
 
 
