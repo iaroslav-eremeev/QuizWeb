@@ -42,7 +42,7 @@ class Quiz {
         return this.questions;
     }
 
-    async downloadQuestions() {
+    async getQuizQuestions() {
         const questionRepository = new QuestionRepository();
         this.questions = await questionRepository.downloadQuestions(this);
         for (let question of this.questions) {

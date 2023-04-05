@@ -1,6 +1,5 @@
 import { Quiz } from "./model/quiz.js";
 $(document).ready(function () {
-    console.log("Start running...");
 // Populate category dropdown
     $.ajax({
         url: "https://opentdb.com/api_category.php",
@@ -29,41 +28,37 @@ $(document).ready(function () {
         const numberOfQuestions = $("#numberOfQuestions").val();
         const category = $("#category").val();
         const difficulty = $("#difficulty").val();
-
         const quiz = new Quiz(numberOfQuestions, category, difficulty);
         await quiz.getQuizQuestions();
 
-        const fileChooser = $('<input type="file" />').attr('accept', '.json,.csv').hide();
-        $('body').append(fileChooser);
-        fileChooser.change(async function() {
-            const file = $(this)[0].files[0];
-            if (file) {
-                const extension = file.name.split('.').pop();
-                if (extension === 'json') {
-                    const data = JSON.stringify(quiz);
-                    const blob = new Blob([data], {type: 'application/json'});
-                    const link = document.createElement('a');
-                    link.download = file.name;
-                    link.href = URL.createObjectURL(blob);
-                    link.click();
-                } else if (extension === 'csv') {
-                    const header = ['numberOfQuestions', 'category', 'difficulty', 'question', 'correct_answer', 'incorrect_answers'];
-                    const rows = [header];
-                    quiz.getQuestions().forEach(function(question) {
-                        const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), question.getQuestion(), question.getCorrect_answer(), question.getIncorrect_answers().join('|')];
-                        rows.push(row);
-                    });
-                    const csvContent = rows.map(e => e.join(',')).join('\n');
-                    const blob = new Blob([csvContent], {type: 'text/csv'});
-                    const link = document.createElement('a');
-                    link.download = file.name;
-                    link.href = URL.createObjectURL(blob);
-                    link.click();
-                }
-            }
-        });
-        fileChooser.click();
+        const extension = $("#extension").val(); // get the file extension from a dropdown list
+        let data = "";
+        if (extension === 'json') {
+            data = JSON.stringify(quiz); // generate the appropriate file data
+        }
+        else if (extension === 'csv') {
+            const header = ['numberOfQuestions', 'category', 'difficulty', 'question', 'correct_answer', 'incorrect_answers'];
+            const rows = [header];
+            quiz.getQuestions().forEach(function(question) {
+                const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), question.getQuestion(), question.getCorrect_answer(), question.getIncorrect_answers().join('|')];
+                rows.push(row);
+            });
+            data = rows.map(e => e.join(',')).join('\n');
+        }
+        const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'}); // create a blob from the data
+
+        const fileSaver = document.createElement('a');
+        fileSaver.href = URL.createObjectURL(blob);
+        fileSaver.download = `quiz.${extension}`; // provide a default file name
+
+        document.body.appendChild(fileSaver); // append the link to the document body
+        fileSaver.click(); // trigger the save dialog
+
+        document.body.removeChild(fileSaver); // remove the link from the document body
+        URL.revokeObjectURL(fileSaver.href); // clean up the object URL after the file has been saved
     });
+
+
 
 // Start button click handler
     $("#btn-start").click(function () {
