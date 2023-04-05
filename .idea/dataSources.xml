@@ -8,5 +8,16 @@
       <jdbc-url>jdbc:mysql://localhost:3306/quizweb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="hibernatemysql.cfg.xml/Hibernate" uuid="7ce44bdd-fe08-40ff-aeae-5f8341e03928">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/tirsb/IdeaProjects/JavaEE/QuizWeb/src/main/resources/hibernatemysql.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost/quizweb?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Moscow</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

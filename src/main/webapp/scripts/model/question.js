@@ -74,23 +74,29 @@ class QuestionRepository {
         try {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', url);
-            xhr.onload = () => {
-                if (xhr.status !== 200) {
-                    throw new Error(`HTTP error! status: ${xhr.status}`);
-                }
-                const responseResult = JSON.parse(xhr.responseText);
-                const { response_code, results } = responseResult;
-                // Add error handling to check if the returned data has the expected structure
-                if (response_code !== 0 || !Array.isArray(results)) {
-                    throw new Error(`Failed to download questions: unexpected response format`);
-                }
-                this.questions = results.map(result => {
-                    return new Question(result.category, result.type, result.difficulty,
-                        result.question, result.correct_answer, result.incorrect_answers);
-                });
-                return this.questions;
-            };
-            xhr.send();
+            return new Promise((resolve, reject) => {
+                xhr.onload = () => {
+                    if (xhr.status !== 200) {
+                        reject(new Error(`HTTP error! status: ${xhr.status}`));
+                    } else {
+                        const responseResult = JSON.parse(xhr.responseText);
+                        const { response_code, results } = responseResult;
+                        if (response_code !== 0 || !Array.isArray(results)) {
+                            reject(new Error(`Failed to download questions: unexpected response format`));
+                        } else {
+                            const questions = results.map(result => {
+                                return new Question(result.category, result.type, result.difficulty,
+                                    result.question, result.correct_answer, result.incorrect_answers);
+                            });
+                            resolve(questions);
+                        }
+                    }
+                };
+                xhr.onerror = () => {
+                    reject(new Error(`Failed to download questions: network error`));
+                };
+                xhr.send();
+            });
         } catch (error) {
             throw new Error(`Failed to download questions: ${error.message}`);
         }

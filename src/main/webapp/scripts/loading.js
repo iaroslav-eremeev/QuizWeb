@@ -31,7 +31,7 @@ $(document).ready(function () {
         const difficulty = $("#difficulty").val();
 
         const quiz = new Quiz(numberOfQuestions, category, difficulty);
-        await quiz.downloadQuestions();
+        await quiz.getQuizQuestions();
 
         const fileChooser = $('<input type="file" />').attr('accept', '.json,.csv').hide();
         $('body').append(fileChooser);
