@@ -1,3 +1,5 @@
+import { Encrypt } from "./util/encrypt.js";
+
 $('#btn-from-internet').click(function() {
     // Check if the checkbox is checked
     let showCorrectAnswers = $('#showCorrectAnswers').prop('checked');
@@ -15,7 +17,6 @@ $('#showCorrectAnswers').click(function() {
 
 // Load file on click
 $('#btn-from-file').click(function() {
-    console.log("Button clicked");
     // Get the last directory path from local storage or set it to user root
     const lastDirPath = localStorage.getItem('dirPath') || "";
     // Open a file chooser dialog and set the initial directory
@@ -72,21 +73,13 @@ $('#btn-from-file').click(function() {
 function decryptQuiz(quiz, decryptKey) {
     for (let i = 0; i < quiz.questions.length; i++) {
         let question = quiz.questions[i];
-        question.text = decrypt(question.text, decryptKey);
-        question.correctAnswer = decrypt(question.correctAnswer, decryptKey);
+        question.question = Encrypt.decrypt(question.question, decryptKey);
+        question.correct_answer = Encrypt.decrypt(question.correct_answer, decryptKey);
         for (let j = 0; j < question.incorrect_answers.length; j++) {
-            question.incorrect_answers[j] = decrypt(question.incorrect_answers[j], decryptKey);
+            question.incorrect_answers[j] = Encrypt.decrypt(question.incorrect_answers[j], decryptKey);
         }
     }
     return quiz;
-}
-// Function to decrypt a string using a key
-function decrypt(text, key) {
-    let result = "";
-    for (let i = 0; i < text.length; i++) {
-        result += String.fromCharCode(text.charCodeAt(i) - key);
-    }
-    return result;
 }
 
 // Function to parse a CSV string and return a quiz object
