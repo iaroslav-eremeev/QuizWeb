@@ -12,8 +12,8 @@ $('#btn-sign-up').click(function () {
             success: [function (data) {
                 $('.popup-fade').fadeIn();
                 // Generate a random decryptKey and store it in local storage
-                var decryptKey = Math.floor(Math.random() * 9) + 1;
-                localStorage.setItem('decryptKey', decryptKey);
+                let decryptKey = Math.floor(Math.random() * 9) + 1;
+                localStorage.setItem('decryptKey', decryptKey.toString());
             }],
             error: [function () {
                 alert("This login is already taken!");

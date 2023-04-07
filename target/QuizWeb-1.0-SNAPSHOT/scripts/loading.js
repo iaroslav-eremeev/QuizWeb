@@ -30,7 +30,7 @@ $(document).ready(function () {
         const difficulty = $("#difficulty").val();
         const quiz = new Quiz(numberOfQuestions, category, difficulty);
         await quiz.getQuizQuestions();
-
+        await quiz.encryptQuestions(parseInt(localStorage.getItem('decryptKey')));
         let extension = '';
         let filename = '';
         await Swal.fire({
@@ -39,14 +39,26 @@ $(document).ready(function () {
             text: "Please select a file format:",
             confirmButtonText: 'JSON',
             background: '#000',
+            color: '#fff',
             showDenyButton: true,
             denyButtonText: 'CSV',
             customClass: {
                 confirmButton: 'btn btn-primary',
+                confirmButtonColor: '#0275d8',
                 denyButton: 'btn btn-warning',
+                denyButtonColor: '#f0ad4e',
+                popup: 'bg-dark',
+                content: 'text-white'
             },
             focusConfirm: false,
             preConfirm: () => {
+                const fileName = Swal.getPopup().querySelector('#fileName').value
+                if (!fileName) {
+                    Swal.showValidationMessage(`Please enter file name`)
+                }
+                return { fileName: fileName }
+            },
+            preDeny: () => {
                 const fileName = Swal.getPopup().querySelector('#fileName').value
                 if (!fileName) {
                     Swal.showValidationMessage(`Please enter file name`)
