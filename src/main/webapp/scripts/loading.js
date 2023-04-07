@@ -32,26 +32,43 @@ $(document).ready(function () {
         await quiz.getQuizQuestions();
 
         let extension = '';
-        const isJson = confirm('Do you want to save the quiz as a JSON file?');
-        if (isJson) {
-            extension = 'json';
-        } else {
-            const isCsv = confirm('Do you want to save the quiz as a CSV file?');
-            if (isCsv) {
+        let filename = '';
+        await Swal.fire({
+            title: "Saving quiz to a file",
+            html: `<input type="text" id="fileName" class="swal2-input" placeholder="Filename">`,
+            text: "Please select a file format:",
+            confirmButtonText: 'JSON',
+            background: '#000',
+            showDenyButton: true,
+            denyButtonText: 'CSV',
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                denyButton: 'btn btn-warning'
+            },
+            focusConfirm: false,
+            preConfirm: () => {
+                const fileName = Swal.getPopup().querySelector('#fileName').value
+                if (!fileName) {
+                    Swal.showValidationMessage(`Please enter file name`)
+                }
+                return { fileName: fileName }
+            },
+            preDeny: () => {
+                const fileName = Swal.getPopup().querySelector('#fileName').value
+                if (!fileName) {
+                    Swal.showValidationMessage(`Please enter file name`)
+                }
+                return { fileName: fileName }
+            }
+        }).then((result) => {
+            filename = result.value.fileName;
+            if (result.isConfirmed) {
+                extension = 'json';
+            }
+            else if (result.isDenied) {
                 extension = 'csv';
             }
-            else {
-                // If the user didn't choose a file format, we can't save the file
-                alert('You must choose a file format to save the quiz!');
-                return;
-            }
-        }
-
-        const filename = prompt('Please enter a filename (without extension) for your quiz:');
-        if (!filename) {
-            // If the user didn't provide a filename, we can't save the file
-            return;
-        }
+        });
 
         let data = '';
         if (extension === 'json') {
@@ -66,7 +83,6 @@ $(document).ready(function () {
             });
             data = rows.map(e => e.join(',')).join('\n');
         }
-
         // Create a blob and open the save dialog
         const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'});
         const fileSaver = document.createElement('a');
