@@ -39,7 +39,6 @@ $(document).ready(function () {
             text: "Please select a file format:",
             confirmButtonText: 'JSON',
             background: '#000',
-            color: '#fff',
             showDenyButton: true,
             denyButtonText: 'CSV',
             customClass: {

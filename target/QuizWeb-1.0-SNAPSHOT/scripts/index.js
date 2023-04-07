@@ -54,7 +54,7 @@ $('#btn-from-file').click(function() {
                 reader.onload = function() {
                     const quiz = parseCsv(reader.result);
                     // Decrypt questions using the unique key stored in local storage
-                    const decryptKey = parseInt(localStorage.getItem('decryptKey')) || 0;
+                    const decryptKey = parseInt(localStorage.getItem('decryptKey'));
                     const decryptedQuiz = decryptQuiz(quiz, decryptKey);
                     // Save the quiz in local storage and go to game page
                     localStorage.setItem('quiz', JSON.stringify(decryptedQuiz));
