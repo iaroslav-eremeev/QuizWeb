@@ -13,66 +13,60 @@ $(document).ready(function() {
     }
 
     function showQuestions() {
-        const tabs = document.querySelector('#quizTabs');
-        const tabContents = document.querySelector('#quizTabsContent');
-        quiz.questions.forEach((question, index) => {
-            shuffleArray(question.incorrect_answers);
+        const accordion = document.querySelector("#accordion");
+        const questions = quiz.questions;
+        shuffleArray(questions);
+        questions.forEach((question, index) => {
             question.answers = [question.correct_answer, ...question.incorrect_answers];
             shuffleArray(question.answers);
 
-            const tab = document.createElement('div');
-            const input = document.createElement('input');
-            const label = document.createElement('label');
-            const tabContent = document.createElement('div');
-            const questionText = document.createElement('p');
+            const card = document.createElement("div");
+            const cardHeader = document.createElement("div");
+            const cardBody = document.createElement("div");
+            const questionText = document.createElement("p");
 
-            tab.className = 'tab';
-            input.id = `tab-${index + 1}`;
-            input.type = 'radio';
-            input.name = 'tabs';
-            if (index === 0) input.checked = true;
-            label.htmlFor = `tab-${index + 1}`;
-            label.textContent = `Question ${index + 1}`;
-            tabContent.className = 'tab-content';
-            questionText.textContent = question.question;
+            card.className = "card";
+            cardHeader.className = "card-header";
+            cardHeader.id = `heading-${index}`;
+            cardBody.className = "card-body collapse";
+            cardBody.id = `collapse-${index}`;
+            cardBody.setAttribute("aria-labelledby", `heading-${index}`);
+            cardBody.setAttribute("data-parent", "#accordionExample");
 
-            tab.appendChild(input);
-            tab.appendChild(label);
-            tabContents.appendChild(tabContent);
-            tabContent.appendChild(questionText);
+            const button = document.createElement("button");
+            button.className = "btn btn-link";
+            button.type = "button";
+            button.setAttribute("data-toggle", "collapse");
+            button.setAttribute("data-target", `#collapse-${index}`);
+            button.setAttribute("aria-expanded", "false");
+            button.setAttribute("aria-controls", `collapse-${index}`);
+            button.textContent = `Question ${index + 1}`;
 
-            question.answers.forEach(answer => {
-                const answerLabel = document.createElement('label');
-                const answerInput = document.createElement('input');
-                answerInput.type = 'radio';
+            cardHeader.appendChild(button);
+            card.appendChild(cardHeader);
+            card.appendChild(cardBody);
+            accordion.appendChild(card);
+
+            const answerInputs = [];
+
+            question.answers.forEach((answer) => {
+                const answerLabel = document.createElement("label");
+                const answerInput = document.createElement("input");
+                answerInput.type = "radio";
                 answerInput.name = `question-${index}`;
                 answerInput.value = String(answer);
+                answerInputs.push(answerInput);
                 answerLabel.textContent = String(answer);
-                tabContent.appendChild(answerInput);
-                tabContent.appendChild(answerLabel);
+                answerLabel.className = "answer-label";
+                cardBody.appendChild(answerLabel);
+                cardBody.appendChild(answerInput);
             });
-        });
 
-        document.querySelector('#checkButton').addEventListener('click', function() {
-            const result = quiz.questions.map((question, index) => {
-                const checkedInput = document.querySelector(`input[name="question-${index}"]:checked`);
-                const isCorrect = checkedInput.value === question.correct_answer;
-                const answerText = isCorrect ? '+' : '-';
-                const answerLabel = isCorrect ? '' : ` Correct answer: ${question.correct_answer}`;
-                return `Q${index + 1}: ${answerText}${showCorrectAnswers ? answerLabel : ''}`;
-            });
-            const correctAnswers = result.filter(answer => answer.includes('+')).length;
-            const total = quiz.questions.length;
-            const percentage = ((correctAnswers / total) * 100).toFixed(1);
-            result.push(`Total: ${correctAnswers}/${total} (${percentage}%)`);
-            const resultText = result.join('\n');
-            Swal.fire({
-                title: 'Results',
-                text: resultText,
-                confirmButtonText: 'Got it',
-            });
+            questionText.textContent = question.question;
+            questionText.className = "question-text";
+            cardBody.insertBefore(questionText, answerInputs[0]);
         });
     }
-
+    console.log(quiz);
     showQuestions();
 });

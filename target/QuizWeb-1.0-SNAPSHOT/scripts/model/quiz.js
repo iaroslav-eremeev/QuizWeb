@@ -46,42 +46,14 @@ class Quiz {
         const questionRepository = new QuestionRepository();
         this.questions = await questionRepository.downloadQuestions(this);
         for (let question of this.questions) {
-            const unescapedQuestion = this.decodeHtmlEntities(question.getQuestion());
+            const unescapedQuestion = he.decode(question.getQuestion());
             question.setQuestion(unescapedQuestion);
-            const unescapedCorrectAnswer = this.decodeHtmlEntities(question.getCorrect_answer());
+            const unescapedCorrectAnswer = he.decode(question.getCorrect_answer());
             question.setCorrect_answer(unescapedCorrectAnswer);
-            const unescapedIncorrectAnswers = question.getIncorrect_answers().map(answer => this.decodeHtmlEntities(answer));
+            const unescapedIncorrectAnswers = question.getIncorrect_answers().map(answer => he.decode(answer));
             question.setIncorrect_answers(unescapedIncorrectAnswers);
         }
     }
-
-    decodeHtmlEntities(text) {
-        const entities = [    ['amp', '&'],
-            ['apos', '\''],
-            ['#x27', '\''],
-            ['#x2F', '/'],
-            ['#39', '\''],
-            ['#47', '/'],
-            ['lt', '<'],
-            ['gt', '>'],
-            ['nbsp', ' '],
-            ['ldquo', '"'],
-            ['rdquo', '"'],
-            ['lsquo', '\''],
-            ['rsquo', '\''],
-            ['hellip', '...'],
-            ['ndash', '-'],
-            ['mdash', '-'],
-            ['iexcl', '¡'],
-            ['iquest', '¿']
-        ];
-
-        for (let i = 0, max = entities.length; i < max; ++i) {
-            text = text.replace(new RegExp(`&${entities[i][0]};`, 'g'), entities[i][1]);
-        }
-        return text;
-    }
-
 
     encryptQuestions(shift) {
         const encryptedQuestions = this.questions.map(question => Encrypt.encryptQuestion(question, shift));
