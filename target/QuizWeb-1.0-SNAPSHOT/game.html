@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Game</title>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+    />
     <style>
         body {
             background-color: black;
@@ -22,21 +26,6 @@
         .btn-primary:hover {
             background-color: #0069d9;
             border-color: #0062cc;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            border-color: #d39e00;
-        }
-
-        /* Center align the login and password fields */
-        .form-group {
-            text-align: center;
         }
 
         /* Center align the buttons */
@@ -56,79 +45,32 @@
             align-items: center;
         }
 
-        /* Accordion style for quiz questions */
-        .accordion {
-            width: 100%;
-            background-color: black;
-            color: white;
-            border: 1px solid #ddd;
-            overflow: hidden;
+        /* Quiz question style */
+        .question-container {
+            margin-bottom: 20px;
+        }
+
+        .question {
+            font-size: 20px;
             margin-bottom: 10px;
         }
 
-        .accordion button {
-            background-color: #444;
-            color: darkgrey;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 18px;
-            transition: 0.4s;
-        }
-
-        .active, .accordion:hover button {
-            background-color: #555;
-        }
-
-        .accordion button:after {
-            content: '\002B';
-            color: white;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }
-
-        .active button:after {
-            content: "\2212";
-        }
-
-        .panel {
-            padding: 0 18px;
-            background-color: black;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-        }
-
-        .panel p {
+        .answer-label {
             font-size: 16px;
-            margin: 10px 0;
-            line-height: 1.5;
+            margin-left: 10px;
         }
 
-        .panel label {
-            display: block;
-            font-size: 14px;
-            margin: 10px 0;
-            line-height: 1.5;
-        }
-
-        .panel input[type="radio"] {
+        input[type="radio"] {
             margin-right: 10px;
         }
-
     </style>
 </head>
 <body>
-
 <div class="container mt-5">
     <h1>Quiz Game</h1>
 
-    <div id="accordion" class="accordion">
-        <!-- Accordion panels for quiz questions will be dynamically added here -->
+    <div id="quiz-container">
+        <!-- Quiz questions and answer options will be dynamically added here -->
     </div>
 
     <button class="btn btn-primary mt-3" id="checkButton">Check</button>
