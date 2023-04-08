@@ -98,14 +98,14 @@ $(document).ready(function () {
 
 
 // Start button click handler
-    $("#btn-start").click(function () {
+    $("#btn-start").click(async function () {
         const numberOfQuestions = $("#numberOfQuestions").val();
         const category = $("#category").val();
         const difficulty = $("#difficulty").val();
         if (numberOfQuestions && category && difficulty) {
-            localStorage.setItem("numberOfQuestions", numberOfQuestions);
-            localStorage.setItem("category", category);
-            localStorage.setItem("difficulty", difficulty);
+            const quiz = new Quiz(numberOfQuestions, category, difficulty);
+            await quiz.getQuizQuestions();
+            localStorage.setItem("quiz", JSON.stringify(quiz));
             window.location.href = "game.html";
         } else {
             alert("Please enter all quiz settings and save them before starting the quiz.");

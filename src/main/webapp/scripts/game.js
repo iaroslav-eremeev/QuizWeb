@@ -13,6 +13,7 @@ $(document).ready(function() {
     }
 
     function showQuestions() {
+        document.querySelector("#quiz-container").innerHTML = "";
         const quizContainer = document.querySelector("#quiz-container");
         const questions = quiz.questions;
         shuffleArray(questions);
