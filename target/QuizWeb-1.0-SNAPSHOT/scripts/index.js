@@ -1,4 +1,6 @@
 import { Encrypt } from "./util/encrypt.js";
+import {Quiz} from "./model/quiz.js";
+import {Question} from "./model/question.js";
 
 $('#btn-from-internet').click(function() {
     // Check if the checkbox is checked
@@ -52,9 +54,18 @@ $('#btn-from-file').click(function() {
             } else if (fileExt === 'csv') {
                 const reader = new FileReader();
                 reader.onload = function() {
-                    const quiz = parseCsv(reader.result);
+                    const quizTemp = parseCsv(reader.result);
+                    const quiz = new Quiz(quizTemp[0].numberOfQuestions, 0, quizTemp[0].difficulty);
+                    const questions = [];
+                    for (let i = 0; i < quizTemp.length; i++) {
+                        const quizQuestion = quizTemp[i].question;
+                        const quizCorrectAnswer = quizTemp[i].correct_answer;
+                        const quizIncorrectAnswers = quizTemp[i].incorrect_answers;
+                        const question = new Question("tempCat", "tempType", "tempDiff", quizQuestion, quizCorrectAnswer, quizIncorrectAnswers);
+                        questions.push(question);
+                    }
+                    quiz.setQuestions(questions);
                     console.log(quiz);
-                    // Decrypt questions using the unique key stored in local storage
                     const decryptKey = parseInt(localStorage.getItem('decryptKey'));
                     const decryptedQuiz = decryptQuiz(quiz, decryptKey);
                     // Save the quiz in local storage and go to game page
