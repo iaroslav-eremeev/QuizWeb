@@ -25,7 +25,12 @@ $(document).ready(function() {
             questionContainer.innerHTML = `<div class="question">${question.question}</div>`;
             quizContainer.appendChild(questionContainer);
 
+            const answerContainer = document.createElement("div");
+            answerContainer.className = "answer-container";
             question.answers.forEach((answer) => {
+                const answerOptionContainer = document.createElement("div");
+                answerOptionContainer.className = "answer-option-container";
+                answerContainer.appendChild(answerOptionContainer);
                 const answerLabel = document.createElement("label");
                 const answerInput = document.createElement("input");
                 answerInput.type = "radio";
@@ -33,9 +38,10 @@ $(document).ready(function() {
                 answerInput.value = String(answer);
                 answerLabel.textContent = String(answer);
                 answerLabel.className = "answer-label";
-                questionContainer.appendChild(answerInput);
-                questionContainer.appendChild(answerLabel);
+                answerOptionContainer.appendChild(answerInput);
+                answerOptionContainer.appendChild(answerLabel);
             });
+            quizContainer.appendChild(answerContainer);
         });
 
         document.querySelector("#checkButton").addEventListener("click", function () {
@@ -50,7 +56,7 @@ $(document).ready(function() {
                     : ` Correct answer: ${question.correct_answer}`;
                 return `Q${index + 1}: ${
                     answerText}${showCorrectAnswers ? answerLabel : ""
-                }`;
+                }<br>`;
             });
             const correctAnswers = result.filter((answer) => answer.includes("+")).length;
             const total = quiz.questions.length;
@@ -58,10 +64,10 @@ $(document).ready(function() {
             result.push(
                 `Total: ${correctAnswers}/${total} (${percentage}%)`
             );
-            const resultText = result.join("\n");
+            const resultText = result.join("<br>");
             Swal.fire({
                 title: "Results",
-                text: resultText,
+                html: resultText,
                 background: "#000",
                 confirmButtonText: "Got it",
             });
