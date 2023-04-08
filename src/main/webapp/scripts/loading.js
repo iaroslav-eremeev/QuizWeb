@@ -86,7 +86,7 @@ $(document).ready(function () {
                 const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), `${question.getQuestion()}|${combinedAnswers}`];
                 rows.push(row);
             });
-            const data = rows.map(e => e.join(',')).join('\n');
+            data = rows.map(e => e.join(',')).join('\n');
         }
         // Create a blob and open the save dialog
         const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'});

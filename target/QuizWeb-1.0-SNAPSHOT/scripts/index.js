@@ -53,6 +53,7 @@ $('#btn-from-file').click(function() {
                 const reader = new FileReader();
                 reader.onload = function() {
                     const quiz = parseCsv(reader.result);
+                    console.log(quiz);
                     // Decrypt questions using the unique key stored in local storage
                     const decryptKey = parseInt(localStorage.getItem('decryptKey'));
                     const decryptedQuiz = decryptQuiz(quiz, decryptKey);
@@ -71,7 +72,6 @@ $('#btn-from-file').click(function() {
 
 // Function to decrypt the questions in a quiz object
 function decryptQuiz(quiz, decryptKey) {
-    console.log(quiz.questions);
     for (let i = 0; i < quiz.questions.length; i++) {
         let question = quiz.questions[i];
         question.question = Encrypt.decrypt(question.question, decryptKey);
@@ -95,11 +95,33 @@ function parseCsv(csv) {
     for (let i = 1; i < lines.length; i++) {
         // Split the line into an array of values
         const values = lines[i].split(',');
+        // If the line contains a comma in the question, the split will result in more than 5 values
+        // In this case, we need to combine the values in the question column
+        if (values.length > 5) {
+            const question = [];
+            // Iterate over the values and combine the question values
+            for (let j = 0; j < values.length; j++) {
+                if (j < 4) {
+                    question.push(values[j]);
+                } else {
+                    question[3] += ',' + values[j];
+                }
+            }
+            // Replace the original values with the combined question value
+            lines[i] = question.join(',');
+        }
         // Create an object to store the row data
         const row = {};
         // Iterate over the headers and assign the values to the corresponding properties
         for (let j = 0; j < headers.length; j++) {
-            row[headers[j]] = values[j];
+            if (headers[j] === 'questions') {
+                const question = values[j].split('|');
+                row['question'] = question[0];
+                row['correct_answer'] = question[1];
+                row['incorrect_answers'] = question.slice(2);
+            } else {
+                row[headers[j]] = values[j];
+            }
         }
         // Add the row object to the data array
         data.push(row);
@@ -107,5 +129,6 @@ function parseCsv(csv) {
     // Return the parsed data
     return data;
 }
+
 
 
