@@ -37,8 +37,35 @@ $(document).ready(function() {
                 questionContainer.appendChild(answerLabel);
             });
         });
+
+        document.querySelector("#checkButton").addEventListener("click", function () {
+            const result = quiz.questions.map((question, index) => {
+                const checkedInput = document.querySelector(
+                    `input[name="question-${index}"]:checked`
+                );
+                const isCorrect = checkedInput.value === question.correct_answer;
+                const answerText = isCorrect ? "+" : "-";
+                const answerLabel = isCorrect
+                    ? ""
+                    : ` Correct answer: ${question.correct_answer}`;
+                return `Q${index + 1}: ${
+                    answerText}${showCorrectAnswers ? answerLabel : ""
+                }`;
+            });
+            const correctAnswers = result.filter((answer) => answer.includes("+"))
+                .length;
+            const total = quiz.questions.length;
+            const percentage = ((correctAnswers / total) * 100).toFixed(1);
+            result.push(
+                `Total: ${correctAnswers}/${total} (${percentage}%)`
+            );
+            const resultText = result.join("\n");
+            Swal.fire({
+                title: "Results",
+                text: resultText,
+                confirmButtonText: "Got it",
+            });
+        });
     }
-
-
     showQuestions();
 });
