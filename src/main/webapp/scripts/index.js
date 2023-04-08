@@ -71,6 +71,7 @@ $('#btn-from-file').click(function() {
 
 // Function to decrypt the questions in a quiz object
 function decryptQuiz(quiz, decryptKey) {
+    console.log(quiz.questions);
     for (let i = 0; i < quiz.questions.length; i++) {
         let question = quiz.questions[i];
         question.question = Encrypt.decrypt(question.question, decryptKey);
@@ -98,7 +99,14 @@ function parseCsv(csv) {
         const row = {};
         // Iterate over the headers and assign the values to the corresponding properties
         for (let j = 0; j < headers.length; j++) {
-            row[headers[j]] = values[j];
+            if (headers[j] === 'questions') {
+                const question = values[j].split('|');
+                row['question'] = question[0];
+                row['correct_answer'] = question[1];
+                row['incorrect_answers'] = question.slice(2);
+            } else {
+                row[headers[j]] = values[j];
+            }
         }
         // Add the row object to the data array
         data.push(row);
@@ -106,5 +114,6 @@ function parseCsv(csv) {
     // Return the parsed data
     return data;
 }
+
 
 

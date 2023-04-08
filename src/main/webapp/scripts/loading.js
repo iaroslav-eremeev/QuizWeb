@@ -79,13 +79,14 @@ $(document).ready(function () {
             data = JSON.stringify(quiz);
         } else if (extension === 'csv') {
             // Create CSV data
-            const header = ['numberOfQuestions', 'category', 'difficulty', 'question', 'correct_answer', 'incorrect_answers'];
+            const header = ['numberOfQuestions', 'category', 'difficulty', 'questions'];
             const rows = [header];
             quiz.getQuestions().forEach(function(question) {
-                const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), question.getQuestion(), question.getCorrect_answer(), question.getIncorrect_answers().join('|')];
+                const combinedAnswers = [question.getCorrect_answer(), ...question.getIncorrect_answers()].join('|');
+                const row = [quiz.getNumberOfQuestions(), quiz.getCategory().getName(), quiz.getDifficulty().toString(), `${question.getQuestion()}|${combinedAnswers}`];
                 rows.push(row);
             });
-            data = rows.map(e => e.join(',')).join('\n');
+            const data = rows.map(e => e.join(',')).join('\n');
         }
         // Create a blob and open the save dialog
         const blob = new Blob([data], {type: (extension === 'json') ? 'application/json' : 'text/csv'});

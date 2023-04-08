@@ -71,6 +71,7 @@ $('#btn-from-file').click(function() {
 
 // Function to decrypt the questions in a quiz object
 function decryptQuiz(quiz, decryptKey) {
+    console.log(quiz.questions);
     for (let i = 0; i < quiz.questions.length; i++) {
         let question = quiz.questions[i];
         question.question = Encrypt.decrypt(question.question, decryptKey);
