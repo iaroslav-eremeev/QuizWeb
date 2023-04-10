@@ -51,6 +51,7 @@ $(document).ready(function() {
                     `input[name="question-${index}"]:checked`
                 );
                 const isCorrect = checkedInput.value === question.correct_answer;
+                const showCorrectAnswers = localStorage.getItem("showCorrectAnswers");
                 const answerText = isCorrect ? "+" : "-";
                 const answerLabel = isCorrect
                     ? ""

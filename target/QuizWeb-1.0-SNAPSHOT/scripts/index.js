@@ -3,10 +3,10 @@ import {Quiz} from "./model/quiz.js";
 import {Question} from "./model/question.js";
 
 $('#btn-from-internet').click(function() {
-    // Check if the checkbox is checked
+    /*// Check if the checkbox is checked
     let showCorrectAnswers = $('#showCorrectAnswers').prop('checked');
     // Store the checkbox state in local storage
-    localStorage.setItem('showCorrectAnswers', showCorrectAnswers);
+    localStorage.setItem('showCorrectAnswers', showCorrectAnswers);*/
     // Redirect to loading.html
     window.location.href = 'loading.html';
 });
