@@ -2,9 +2,6 @@ $(document).ready(function() {
     // Load the quiz data from localStorage
     const quiz = JSON.parse(localStorage.getItem('quiz'));
 
-    // Load the show correct answers option from localStorage
-    const showCorrectAnswers = localStorage.getItem('showCorrectAnswers');
-
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
